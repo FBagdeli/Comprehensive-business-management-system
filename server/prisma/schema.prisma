@@ -12,3 +12,89 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum UserRole {
+  ADMIN
+}
+
+enum transactionType {
+  SALE
+  PURCHASE
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  name        String
+  phoneNumber String?
+  pawwrod     String
+  role        UserRole  @default(ADMIN)
+  email       String?
+  invoices    Invoice[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Invoice {
+  id         Int             @id @default(autoincrement())
+  userId     Int
+  user       User            @relation(fields: [userId], references: [id])
+  supplierId Int
+  supplier   Supplier        @relation(fields: [supplierId], references: [id])
+  customerId Int
+  customer   Customer        @relation(fields: [customerId], references: [id])
+  invoiceProduct  InvoiceProducts[]
+  type       transactionType @default(SALE)
+  totalPrice Int
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+}
+
+model Supplier {
+  id          Int       @id @default(autoincrement())
+  name        String
+  invoices    Invoice[]
+  phoneNumber String?
+  address     String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Customer {
+  id          Int       @id @default(autoincrement())
+  phoneNumber String?
+  address     String?
+  birthday    DateTime?
+  invoices    Invoice[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model InvoiceProducts {
+  id               Int      @id @default(autoincrement())
+  invoiceId        Int
+  invoice          Invoice  @relation(fields: [invoiceId], references: [id])
+  productId        Int
+  product          Products @relation(fields: [productId], references: [id])
+  quantity         Int
+  weight           Decimal  @db.Decimal(9, 3)
+  dailyGoldPriec   Decimal  @db.Decimal(9, 3)
+  price            Int
+  totalPrice       Int
+  jewelryMakingFee Int
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Products {
+  id               Int     @id @default(autoincrement())
+  invoiceProduct   InvoiceProducts[]
+  code             String  @unique
+  type             String
+  description      String?
+  weight           Decimal @db.Decimal(9, 3)
+  quantity         Int
+  jewelryMakingFee Int
+  price            Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
