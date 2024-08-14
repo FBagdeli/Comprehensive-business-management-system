@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-import  {dailyGoldPriec} from '../src/utilis/dailyGoldPrice.js'
-const DGP = dailyGoldPriec
+import { dailyGoldPriec } from "../src/utilis/dailyGoldPrice.js";
+const DGP = dailyGoldPriec;
 const prisma = new PrismaClient();
 
 async function seed() {
@@ -57,7 +57,26 @@ async function seed() {
     "EARRING"
   );
 
-  const invoice = await createInvoice(admin.id, customer.id, supplier.id ,product1.id, 1,product1.weight, DGP,product1.jewelryMakingFee,'SALE');
+  const invoice = await createInvoice(
+    admin.id,
+    customer.id,
+    supplier.id,
+    product1.id,
+    1,
+    product1.weight,
+    DGP,
+    product1.jewelryMakingFee,
+    "SALE"
+  );
+
+  const invoiceProduct = await createInvoiceProduct(
+    1,
+    product1.id,
+    1,
+    product1.weight,
+    DGP,
+    product1.jewelryMakingFee
+  );
 
   process.exit(0);
 }
@@ -153,7 +172,11 @@ async function createInvoice(
   jewelryMakingFee,
   type = "SALE"
 ) {
-  const roundedPrice = Math.round(quantity*weight*dailyGoldPriec)
+  const roundedPrice = Math.round(
+    quantity *
+      (weight * dailyGoldPriec +
+        (weight * dailyGoldPriec * (jewelryMakingFee/ 100)))
+  );
   const invoice = await prisma.invoice.create({
     data: {
       userId,
@@ -172,9 +195,9 @@ async function createInvoice(
         },
       },
     },
-    include:{
-      invoiceProduct: true
-    }
+    include: {
+      invoiceProduct: true,
+    },
   });
   console.log("invoice created: ", invoice);
   return invoice;
@@ -186,17 +209,26 @@ async function createInvoiceProduct(
   quantity,
   weight,
   dailyGoldPriec,
-  price,
-  totalPrice,
   jewelryMakingFee
 ) {
-  const invoiceProduct = await prisma.invoiceProducts.create(
-    invoiceId,
-    productId,
-    quantity,
-    weight,
-    dailyGoldPriec
+  const roundedPrice = Math.round(
+    quantity *
+      (weight * dailyGoldPriec +
+        (weight * dailyGoldPriec * (jewelryMakingFee/ 100)))
   );
+  const invoiceProduct = await prisma.invoiceProduct.create({
+    data: {
+      invoiceId,
+      productId,
+      quantity,
+      weight,
+      dailyGoldPriec,
+      price: roundedPrice,
+      jewelryMakingFee,
+    },
+  });
+  console.log("invoceProduct created: ", invoiceProduct);
+  return invoiceProduct;
 }
 
 seed().catch(async (e) => {
