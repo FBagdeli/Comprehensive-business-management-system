@@ -24,9 +24,10 @@ enum transactionType {
 
 model User {
   id          Int       @id @default(autoincrement())
-  name        String
+  firstName   String
+  lastName    String
   phoneNumber String?
-  pawwrod     String
+  password     String
   role        UserRole  @default(ADMIN)
   email       String?
   invoices    Invoice[]
@@ -35,23 +36,24 @@ model User {
 }
 
 model Invoice {
-  id         Int             @id @default(autoincrement())
-  userId     Int
-  user       User            @relation(fields: [userId], references: [id])
-  supplierId Int
-  supplier   Supplier        @relation(fields: [supplierId], references: [id])
-  customerId Int
-  customer   Customer        @relation(fields: [customerId], references: [id])
-  invoiceProduct  InvoiceProducts[]
-  type       transactionType @default(SALE)
-  totalPrice Int
-  createdAt  DateTime        @default(now())
-  updatedAt  DateTime        @updatedAt
+  id             Int               @id @default(autoincrement())
+  userId         Int
+  user           User              @relation(fields: [userId], references: [id])
+  supplierId     Int
+  supplier       Supplier          @relation(fields: [supplierId], references: [id])
+  customerId     Int
+  customer       Customer          @relation(fields: [customerId], references: [id])
+  invoiceProduct InvoiceProducts[]
+  type           transactionType   @default(SALE)
+  totalPrice     Int
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
 }
 
 model Supplier {
   id          Int       @id @default(autoincrement())
-  name        String
+  firstName   String
+  lastName    String
   invoices    Invoice[]
   phoneNumber String?
   address     String?
@@ -61,6 +63,8 @@ model Supplier {
 
 model Customer {
   id          Int       @id @default(autoincrement())
+  firstName   String
+  lastName    String
   phoneNumber String?
   address     String?
   birthday    DateTime?
@@ -86,15 +90,15 @@ model InvoiceProducts {
 }
 
 model Products {
-  id               Int     @id @default(autoincrement())
+  id               Int               @id @default(autoincrement())
   invoiceProduct   InvoiceProducts[]
-  code             String  @unique
+  code             String            @unique
   type             String
   description      String?
-  weight           Decimal @db.Decimal(9, 3)
+  weight           Decimal           @db.Decimal(9, 3)
   quantity         Int
   jewelryMakingFee Int
   price            Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
 }
