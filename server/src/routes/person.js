@@ -4,4 +4,6 @@ const router = Router()
 
 router.post('/', create)
 router.get('/', getById)
+
+
 export default router

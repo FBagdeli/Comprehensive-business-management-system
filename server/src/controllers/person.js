@@ -12,18 +12,20 @@ export const create = async (req, res) => {
       await findPersonByEmailOrPhoneNumber(req.body);
 
     if (existingPersonByEmailOrPhoneNumber) {
-      return sendDataResponse(res, 400, { error: ERR.EMAIL_OR_PHONE_NUMBER_IN_USE });
+      return sendDataResponse(res, 400, {
+        error: ERR.EMAIL_OR_PHONE_NUMBER_IN_USE,
+      });
     }
   } catch (error) {
-    return sendDataResponse(res, 500, { error: e.message })
+    console.error(ERR.UNEXPECTED_ERROR, error);
+    return sendDataResponse(res, 500, { error: ERR.UNEXPECTED_ERROR });
   }
 
   try {
     const createdPerson = await createPerson(req.body);
-
     return sendDataResponse(res, 200, createdPerson);
   } catch (error) {
-    console.error(ERR.UNABLE_TO_CREATE_PERSON, error)
+    console.error(ERR.UNABLE_TO_CREATE_PERSON, error);
     return sendDataResponse(res, 500, { error: ERR.UNABLE_TO_CREATE_PERSON });
   }
 };

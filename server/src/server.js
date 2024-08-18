@@ -6,4 +6,5 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/persons', personRouter)
+
 export default app
