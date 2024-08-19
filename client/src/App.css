@@ -2,18 +2,13 @@
   max-width: 800px;
   height: 1fr;
   margin: 0 auto;
-  padding: 1rem;
+  padding: .1rem;
   text-align: center;
   color: black;
   background-color: #E3FDFD;
   border-radius: 5px;
 }
-/*
-backGround Color : E3FDFD
-second Color : CBF1F5
-third Color : A6E3E9
-fourth Color : 71C9CE
-*/
+
 .colors {
   background-color: #E3FDFD;
   background-color: #CBF1F5;
@@ -24,7 +19,7 @@ fourth Color : 71C9CE
 .container {
   display: grid;
   grid-template-rows: 100px 1fr;
-  grid-template-columns: 150px 1fr;
+  grid-template-columns: 130px 1fr;
   grid-template-areas: 
   "header header"
   "aside main-content";
@@ -40,11 +35,28 @@ fourth Color : 71C9CE
 }
 
 .aside {
+  text-align: left;
   grid-area: aside;
   background-color: #A6E3E9;
   height: 1280px;
   border-end-start-radius: 5px;
 }
+
+.aside-ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.aside-ul li {
+
+  padding-left: 10px;
+}
+
+.aside-ul li:hover {
+  font-weight: bold;
+  background-color: #71C9CE;
+}
+
 
 .main-content {
   grid-area: main-content;
