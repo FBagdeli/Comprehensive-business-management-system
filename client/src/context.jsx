@@ -11,7 +11,7 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     const fetchCustomer = async () => {
       try {
-        const response = await fetch(`${URL}/persons`);
+        const response = await fetch(`${URL}/persons/customers`);
         const personsData = await response.json();
         setPersons(personsData.data);
       } catch (error) {

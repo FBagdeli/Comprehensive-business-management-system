@@ -18,7 +18,7 @@
 
 .container {
   display: grid;
-  grid-template-rows: 100px 1fr;
+  grid-template-rows: 50px 1fr;
   grid-template-columns: 130px 1fr;
   grid-template-areas: 
   "header header"
@@ -59,6 +59,28 @@
 
 .main-content {
   grid-area: main-content;
-  background-color: #CBF1F5;
+  background-color: white;
   border-end-end-radius: 5px;
+}
+
+.main-content-table {
+  margin: 10px;
+  width: 97%;
+  border-radius: 10px;
+  border-collapse:collapse;
+}
+
+/* .main-content-table tr:nth-child(even) {
+  background-color: #E3FDFD;
+} */
+.main-content-table th {
+  background-color: #A6E3E9;
+}
+.table-rows:nth-child(even) {
+  background-color: #E3FDFD;
+}
+
+.acction-buttons svg{
+  height: 20px;
+  width: 20px;
 }

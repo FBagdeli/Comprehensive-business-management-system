@@ -33,3 +33,9 @@ export async function findPersonByEmailOrPhoneNumber({ email, phoneNumber }) {
   if (foundPerson) return foundPerson;
   return null;
 }
+
+export async function findAll() {
+  const foundedPersons = await dbClient.person.findMany();
+  if (foundedPersons) return foundedPersons;
+  return null;
+}

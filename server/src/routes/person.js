@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { create, getById } from "../controllers/person.js";
-const router = Router()
+import { create, getAllCustomers, getById } from "../controllers/person.js";
+const router = Router();
 
-router.post('/', create)
-router.get('/', getById)
+router.post("/", create);
+router.get("/customers", getAllCustomers);
+router.get("/:id", getById);
 
-
-export default router
+export default router;
