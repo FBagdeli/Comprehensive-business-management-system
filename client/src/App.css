@@ -7,13 +7,10 @@
   color: black;
   background-color: #E3FDFD;
   border-radius: 5px;
-}
-
-.colors {
-  background-color: #E3FDFD;
-  background-color: #CBF1F5;
-  background-color: #A6E3E9;
-  background-color: #71C9CE;
+  --primary-color: #71C9CE;;
+  --secondary-color: #CBF1F5;
+  --accent-color: #A6E3E9;
+  --background-color: #E3FDFD;
 }
 
 .container {
@@ -30,14 +27,14 @@
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   grid-area: header;
-  background-color: #71C9CE;
+  background-color: var(--primary-color);
   height: 100px;
 }
 
 .aside {
   text-align: left;
   grid-area: aside;
-  background-color: #A6E3E9;
+  background-color: var(--accent-color);
   height: 1280px;
   border-end-start-radius: 5px;
 }
@@ -53,7 +50,7 @@
 
 .aside-ul li:hover {
   font-weight: bold;
-  background-color: #71C9CE;
+  background-color: var(--primary-color);
 }
 
 
@@ -71,15 +68,15 @@
 }
 
 .main-content-table th {
-  background-color: #A6E3E9;
+  background-color: var(--accent-color);
 }
 
 .table-rows:nth-child(even) {
-  background-color: #E3FDFD;
+  background-color: var(--background-color);
 }
 
 .table-rows:hover {
-  background-color: #A6E3E9;
+  background-color: var(--accent-color);
 }
 .acction-buttons svg{
   height: 20px;
