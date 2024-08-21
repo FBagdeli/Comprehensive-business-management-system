@@ -3,4 +3,6 @@ export default {
   UNABLE_TO_CREATE_PERSON: "Unable to create new person",
   UNEXPECTED_ERROR: "An unexpected error occurred. Please try again later.",
   DIDNT_FIND_PERSON: "Didnt find any person",
+  DIDNT_FIND_PRODUCTS: "Didnt find products",
+  UNABLE_TO_GET_PRODUCTS: "Unable to get products"
 };

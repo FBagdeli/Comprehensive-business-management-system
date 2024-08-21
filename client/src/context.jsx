@@ -9,7 +9,9 @@ export const AppProvider = ({ children }) => {
   const [customers, setCustomers] = useState([]);
   const [supplierContent, setSupplierContent] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
-  const [selectedContent, setSelectedContent] = useState('dashboard')
+  const [selectedContent, setSelectedContent] = useState("dashboard");
+  const [productsContent, setProductsContent] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchCustomer = async () => {
@@ -37,35 +39,47 @@ export const AppProvider = ({ children }) => {
     fetchSupplier();
   }, []);
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(`${URL}/products`)
+        const productsData = await response.json()
+        setProducts(productsData.data)
+      } catch (error) {
+        console.error("Error Fetching products: ", error);
+      }
+    }
+    fetchProducts()
+  }, []);
+
   const dashboardHandler = async () => {
-    setSelectedContent('dashboard')
-  }
+    setSelectedContent("dashboard");
+  };
 
   const productHandler = async () => {
     setSelectedContent("products");
+    setProductsContent(products)
   };
 
   const customerHandler = async () => {
-    setSelectedContent('customers')
+    setSelectedContent("customers");
     setCustomerContent(customers);
   };
 
   const supplierHandler = async () => {
-    setSelectedContent('suppliers')
+    setSelectedContent("suppliers");
     setSupplierContent(suppliers);
   };
-
-  
 
   const value = {
     selectedContent,
     customerContent,
     supplierContent,
+    productsContent,
     productHandler,
     customerHandler,
     supplierHandler,
     dashboardHandler,
-    
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
