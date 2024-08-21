@@ -6,6 +6,9 @@ export const AsideUl = () => {
   return (
     <ul className="aside-ul">
       <li onClick={productHandler}>
+        <p>Dashboard</p>
+      </li>
+      <li onClick={productHandler}>
         <p>Products</p>
       </li>
       <li onClick={customerHandler}>

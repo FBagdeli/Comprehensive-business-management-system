@@ -7,16 +7,15 @@ const URL = "http://localhost:3000";
 export const AppProvider = ({ children }) => {
   const [customerContent, setCustomerContent] = useState([]);
   const [customers, setCustomers] = useState([]);
-
   const [supplierContent, setSupplierContent] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
+  const [selectedContent, setSelectedContent] = useState('Dashboard')
 
   useEffect(() => {
     const fetchCustomer = async () => {
       try {
         const response = await fetch(`${URL}/persons/customers`);
         const customersData = await response.json();
-        console.log(customersData)
         setCustomers(customersData.data);
       } catch (error) {
         console.error("Error Fetching customers: ", error);
@@ -28,10 +27,8 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     const fetchSupplier = async () => {
       try {
-        console.log('fetch')
         const response = await fetch(`${URL}/persons/suppliers`);
         const suppliersData = await response.json();
-        console.log(suppliersData)
         setSuppliers(suppliersData.data);
       } catch (error) {
         console.error("Error Fetching suppliers: ", error);
@@ -41,7 +38,7 @@ export const AppProvider = ({ children }) => {
   }, []);
 
   const customerHandler = async () => {
-    console.log("cusHandler");
+    setSelectedContent('customers')
     setCustomerContent(customers);
   };
 
@@ -50,6 +47,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const supplierHandler = async () => {
+    setSelectedContent('suppliers')
     setSupplierContent(suppliers);
   };
 
@@ -59,6 +57,7 @@ export const AppProvider = ({ children }) => {
     productHandler,
     customerHandler,
     supplierHandler,
+    selectedContent,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

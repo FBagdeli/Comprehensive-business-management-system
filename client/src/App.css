@@ -70,16 +70,17 @@
   border-collapse:collapse;
 }
 
-/* .main-content-table tr:nth-child(even) {
-  background-color: #E3FDFD;
-} */
 .main-content-table th {
   background-color: #A6E3E9;
 }
+
 .table-rows:nth-child(even) {
   background-color: #E3FDFD;
 }
 
+.table-rows:hover {
+  background-color: #A6E3E9;
+}
 .acction-buttons svg{
   height: 20px;
   width: 20px;
