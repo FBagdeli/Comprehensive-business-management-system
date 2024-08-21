@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { AppContext } from "../context";
 
 export const AsideUl = () => {
-  const { productHandler, customerHandler } = useContext(AppContext);
+  const { productHandler, customerHandler, supplierHandler } = useContext(AppContext);
   return (
     <ul className="aside-ul">
       <li onClick={productHandler}>
@@ -12,7 +12,7 @@ export const AsideUl = () => {
         <p>Customers</p>
       </li>
       <li>
-        <p>Suppliers</p>
+        <p onClick={supplierHandler}>Suppliers</p>
       </li>
       <li>
         <p>Invoices</p>

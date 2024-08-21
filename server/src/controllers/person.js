@@ -41,11 +41,21 @@ export const getById = async (req, res) => {
 export const getAllCustomers = async (req, res) => {
   try {
     const getAllPersons = await findAll();
-    console.log(getAllPersons)
     const customers = getAllPersons.filter(person => person.isSupplier === false)
-    console.log(customers)
     return sendDataResponse(res, 200, { persons: customers });
   } catch (error) {
+    console.error(ERR.DIDNT_FIND_PERSON, error)
     return sendDataResponse(res, 500, { error: ERR.DIDNT_FIND_PERSON });
   }
 };
+
+export const getAllSuppliers = async(req, res) => {
+  try {
+    const getAllPersons = await findAll()
+    const suplliers = getAllPersons.filter(person => person.isSupplier === true)
+    return sendDataResponse(res, 200, {persons : suplliers})
+  } catch (error) {
+    console.error(ERR.DIDNT_FIND_PERSON, error)
+    return sendDataResponse(res, 500, { error: ERR.DIDNT_FIND_PERSON})
+  }
+}
