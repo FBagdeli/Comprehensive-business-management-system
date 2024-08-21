@@ -2,10 +2,11 @@ import { useContext } from "react";
 import { AppContext } from "../context";
 
 export const AsideUl = () => {
-  const { productHandler, customerHandler, supplierHandler } = useContext(AppContext);
+  const { productHandler, customerHandler, supplierHandler, dashboardHandler } =
+    useContext(AppContext);
   return (
     <ul className="aside-ul">
-      <li onClick={productHandler}>
+      <li onClick={dashboardHandler}>
         <p>Dashboard</p>
       </li>
       <li onClick={productHandler}>

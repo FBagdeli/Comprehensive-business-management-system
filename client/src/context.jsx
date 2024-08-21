@@ -9,7 +9,7 @@ export const AppProvider = ({ children }) => {
   const [customers, setCustomers] = useState([]);
   const [supplierContent, setSupplierContent] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
-  const [selectedContent, setSelectedContent] = useState('Dashboard')
+  const [selectedContent, setSelectedContent] = useState('dashboard')
 
   useEffect(() => {
     const fetchCustomer = async () => {
@@ -37,13 +37,17 @@ export const AppProvider = ({ children }) => {
     fetchSupplier();
   }, []);
 
+  const dashboardHandler = async () => {
+    setSelectedContent('dashboard')
+  }
+
+  const productHandler = async () => {
+    setSelectedContent("products");
+  };
+
   const customerHandler = async () => {
     setSelectedContent('customers')
     setCustomerContent(customers);
-  };
-
-  const productHandler = async () => {
-    // setMainContent("Product");
   };
 
   const supplierHandler = async () => {
@@ -51,13 +55,17 @@ export const AppProvider = ({ children }) => {
     setSupplierContent(suppliers);
   };
 
+  
+
   const value = {
+    selectedContent,
     customerContent,
     supplierContent,
     productHandler,
     customerHandler,
     supplierHandler,
-    selectedContent,
+    dashboardHandler,
+    
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
