@@ -1,22 +1,34 @@
 import { useContext } from "react";
 import { AppContext } from "../context";
-
+import { Link } from "react-router-dom";
 export const AsideUl = () => {
-  const { productHandler, customerHandler, supplierHandler, dashboardHandler } =
-    useContext(AppContext);
+  const {
+    productsHandler,
+    customerHandler,
+    supplierHandler,
+    dashboardHandler,
+  } = useContext(AppContext);
   return (
     <ul className="aside-ul">
       <li onClick={dashboardHandler}>
-        <p>Dashboard</p>
+        <Link to="/">
+          <p>Dashboard</p>
+        </Link>
       </li>
-      <li onClick={productHandler}>
-        <p>Products</p>
+      <li onClick={productsHandler}>
+        <Link to="/products">
+          <p>Products</p>
+        </Link>
       </li>
       <li onClick={customerHandler}>
-        <p>Customers</p>
+        <Link to="/customers">
+          <p>Customers</p>
+        </Link>
       </li>
-      <li>
-        <p onClick={supplierHandler}>Suppliers</p>
+      <li onClick={supplierHandler}>
+        <Link to="/suppliers">
+          <p>Suppliers</p>
+        </Link>
       </li>
       <li>
         <p>Invoices</p>

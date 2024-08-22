@@ -4,5 +4,7 @@ export default {
   UNEXPECTED_ERROR: "An unexpected error occurred. Please try again later.",
   DIDNT_FIND_PERSON: "Didnt find any person",
   DIDNT_FIND_PRODUCTS: "Didnt find products",
-  UNABLE_TO_GET_PRODUCTS: "Unable to get products"
+  UNABLE_TO_GET_PRODUCTS: "Unable to get products",
+  DIDNT_FIND_PRODUCT: "Didnt find product",
+  UNABLE_TO_GET_PRODUCT: "Unable to get product",
 };

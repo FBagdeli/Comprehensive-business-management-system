@@ -1,18 +1,19 @@
-import { useContext } from "react";
 import { CustomersContent } from "./CustomersContent";
 import { SupplierContent } from "./SupplierContent";
-import { AppContext } from "../context";
 import { Dashboard } from "./Dashboard";
 import { ProductsContent } from "./ProductsContent";
+import { Routes, Route } from "react-router-dom";
+import { ProductContent } from "./ProductContent";
 export const MainContent = () => {
-  const { selectedContent } = useContext(AppContext)
-
   return (
     <div className="main-content">
-      {selectedContent=== 'dashboard' && <Dashboard/>}
-      {selectedContent=== 'products' && <ProductsContent />}
-      {selectedContent === 'customers' && <CustomersContent />}
-      {selectedContent === 'suppliers' &&<SupplierContent />}
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/products" element={<ProductsContent />} />
+        <Route path="/customers" element={<CustomersContent />} />
+        <Route path="/suppliers" element={<SupplierContent />} />
+        <Route path="/products/:id" element={<ProductContent />} />
+      </Routes>
     </div>
   );
 };

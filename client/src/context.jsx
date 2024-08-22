@@ -1,10 +1,10 @@
 import { createContext, useEffect, useState } from "react";
-
 export const AppContext = createContext();
-
+import { useNavigate } from "react-router-dom";
 const URL = "http://localhost:3000";
 
 export const AppProvider = ({ children }) => {
+  const nav = useNavigate();
   const [customerContent, setCustomerContent] = useState([]);
   const [customers, setCustomers] = useState([]);
   const [supplierContent, setSupplierContent] = useState([]);
@@ -12,7 +12,7 @@ export const AppProvider = ({ children }) => {
   const [selectedContent, setSelectedContent] = useState("dashboard");
   const [productsContent, setProductsContent] = useState([]);
   const [products, setProducts] = useState([]);
-
+  const [productContent, setProductContent] = useState([]);
   useEffect(() => {
     const fetchCustomer = async () => {
       try {
@@ -42,23 +42,29 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`${URL}/products`)
-        const productsData = await response.json()
-        setProducts(productsData.data)
+        const response = await fetch(`${URL}/products`);
+        const productsData = await response.json();
+        setProducts(productsData.data);
       } catch (error) {
         console.error("Error Fetching products: ", error);
       }
-    }
-    fetchProducts()
+    };
+    fetchProducts();
   }, []);
 
+  const productHandler = async (productId) => {
+    const response = await fetch(`${URL}/products/${productId}`);
+    const { data } = await response.json();
+    nav(`/products/${productId}`);
+    setProductContent(data.product);
+  };
   const dashboardHandler = async () => {
     setSelectedContent("dashboard");
   };
 
-  const productHandler = async () => {
+  const productsHandler = async () => {
     setSelectedContent("products");
-    setProductsContent(products)
+    setProductsContent(products);
   };
 
   const customerHandler = async () => {
@@ -76,10 +82,12 @@ export const AppProvider = ({ children }) => {
     customerContent,
     supplierContent,
     productsContent,
-    productHandler,
+    productContent,
+    productsHandler,
     customerHandler,
     supplierHandler,
     dashboardHandler,
+    productHandler,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
