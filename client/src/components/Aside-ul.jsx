@@ -31,12 +31,12 @@ export const AsideUl = () => {
         </Link>
       </li>
       <li>
-        <Link to="/invoices/new">
-          <p>Invoices</p>
-        </Link>
+        <p>Invoices</p>
       </li>
       <li>
-        <p>New Invoice</p>
+        <Link to="/invoices/new">
+          <p>New Invoices</p>
+        </Link>
       </li>
     </ul>
   );

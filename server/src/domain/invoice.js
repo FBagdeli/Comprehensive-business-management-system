@@ -1,7 +1,7 @@
 import dbClient from "../utilis/dbClient.js";
 
 export const createDB = async ({
-  userId,
+  userId = 1,
   personId,
   productId,
   weight,

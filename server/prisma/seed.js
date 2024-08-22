@@ -44,8 +44,8 @@ async function seed() {
   );
 
   const product2 = await createProduct(
-    "Necklake",
-    "Beautiful necklake",
+    "Necklace",
+    "Beautiful necklace",
     "NECKLACE",
     10,
     10

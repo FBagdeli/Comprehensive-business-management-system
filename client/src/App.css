@@ -136,3 +136,58 @@
 .create-product button:hover {
   background-color: var(--primary-color);
 }
+
+.invoiceForm {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--background-color);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.invoiceForm h3 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.invoiceForm label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.invoiceForm input {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.invoiceForm input::placeholder {
+  color: #aaa;
+}
+
+.invoiceForm input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.invoiceForm button {
+  padding: 10px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.invoiceForm button:hover {
+  background-color: var(--primary-color);
+}

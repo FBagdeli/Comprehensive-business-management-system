@@ -84,14 +84,14 @@ export const AppProvider = ({ children }) => {
     nav("/products/create");
   };
 
-  const createNewProductSubmitHandler = async (e) => {
+  const createNewProductSubmitHandler = async (newProduct) => {
     try {
       const response = await fetch(`${URL}/products`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(e),
+        body: JSON.stringify(newProduct),
       });
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
@@ -99,7 +99,7 @@ export const AppProvider = ({ children }) => {
       await fetchProducts();
       const data = await response.json();
       
-      nav("/products");
+      // nav("/products");
     } catch (error) {
       console.error("Error creating product:", error);
     }
