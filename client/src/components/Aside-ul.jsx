@@ -31,7 +31,9 @@ export const AsideUl = () => {
         </Link>
       </li>
       <li>
-        <p>Invoices</p>
+        <Link to="/invoices/new">
+          <p>Invoices</p>
+        </Link>
       </li>
       <li>
         <p>New Invoice</p>

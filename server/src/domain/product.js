@@ -7,13 +7,42 @@ export const findMany = async () => {
 };
 
 export const findproduct = async (key, value) => {
-  console.log(' kyyyyyyyyyyyyyyyyyyyyyyyyyyyy',key, ' kyyyyyyyyyyyyyyyyyyyyyyyyyyyy' , value)
   const foundedProduct = await dbClient.product.findFirst({
     where: {
       [key]: value,
     },
   });
-  console.log(foundedProduct)
-  if (foundedProduct) return foundedProduct
-  return null
+  if (foundedProduct) return foundedProduct;
+  return null;
 };
+
+export async function createProductDb({
+  name,
+  description,
+  type = "RING",
+  weight,
+  jewelryMakingFee,
+  inStock = 1,
+  price = calculatePrice(weight, DGP, jewelryMakingFee),
+}) {
+  const product = await dbClient.product.create({
+    data: {
+      name,
+      description,
+      weight,
+      inStock,
+      jewelryMakingFee,
+      price,
+      type,
+    }
+  })
+  console.log(product)
+  return product
+}
+
+
+function calculatePrice(weight, dailyGoldPrice, jewelryMakingFee) {
+  return (
+    weight * dailyGoldPrice + weight * dailyGoldPrice * (jewelryMakingFee / 100)
+  );
+}

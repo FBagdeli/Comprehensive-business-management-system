@@ -51,6 +51,7 @@
 .aside-ul li:hover {
   font-weight: bold;
   background-color: var(--primary-color);
+  cursor: pointer;
 }
 
 
@@ -77,8 +78,61 @@
 
 .table-rows:hover {
   background-color: var(--accent-color);
+  cursor: pointer;
 }
+
+.acction-buttons button {
+  cursor: pointer;
+}
+
 .acction-buttons svg{
   height: 20px;
   width: 20px;
+}
+
+#createButton {
+  height: 25px;
+  width: 75px;
+  background-color: var(--accent-color);
+  cursor: pointer;
+}
+
+.createButton-div {
+  display: flex;
+  justify-content: flex-end;
+  width: 95%;
+}
+
+.create-product {
+  display: flex;
+  flex-direction: column; 
+  max-width: 400px; 
+  margin: 0 auto;
+}
+
+.create-product label {
+  margin-top: 15px; 
+  font-weight: bold; 
+}
+.create-product input {
+  margin-top: 5px; 
+  padding: 10px; 
+  border: 1px solid var(--accent-color); 
+  border-radius: 4px;
+  font-size: 16px; 
+}
+
+.create-product button {
+  margin-top: 20px; 
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: white; 
+  border: none; 
+  border-radius: 4px; 
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.create-product button:hover {
+  background-color: var(--primary-color);
 }

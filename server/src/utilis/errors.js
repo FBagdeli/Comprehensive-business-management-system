@@ -7,4 +7,5 @@ export default {
   UNABLE_TO_GET_PRODUCTS: "Unable to get products",
   DIDNT_FIND_PRODUCT: "Didnt find product",
   UNABLE_TO_GET_PRODUCT: "Unable to get product",
+  UNABLE_CREATE_PRODUCT: "Unable to create new product"
 };

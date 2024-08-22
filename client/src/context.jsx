@@ -13,6 +13,7 @@ export const AppProvider = ({ children }) => {
   const [productsContent, setProductsContent] = useState([]);
   const [products, setProducts] = useState([]);
   const [productContent, setProductContent] = useState([]);
+
   useEffect(() => {
     const fetchCustomer = async () => {
       try {
@@ -40,17 +41,19 @@ export const AppProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(`${URL}/products`);
-        const productsData = await response.json();
-        setProducts(productsData.data);
-      } catch (error) {
-        console.error("Error Fetching products: ", error);
-      }
-    };
     fetchProducts();
+    // fetchProducts();
   }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch(`${URL}/products`);
+      const { data } = await response.json();
+      setProducts(data);
+    } catch (error) {
+      console.error("Error Fetching products: ", error);
+    }
+  };
 
   const productHandler = async (productId) => {
     const response = await fetch(`${URL}/products/${productId}`);
@@ -77,6 +80,31 @@ export const AppProvider = ({ children }) => {
     setSupplierContent(suppliers);
   };
 
+  const navPrudctHandlerComponent = async () => {
+    nav("/products/create");
+  };
+
+  const createNewProductSubmitHandler = async (e) => {
+    try {
+      const response = await fetch(`${URL}/products`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(e),
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+      await fetchProducts();
+      const data = await response.json();
+      
+      nav("/products");
+    } catch (error) {
+      console.error("Error creating product:", error);
+    }
+  };
+
   const value = {
     selectedContent,
     customerContent,
@@ -88,6 +116,8 @@ export const AppProvider = ({ children }) => {
     supplierHandler,
     dashboardHandler,
     productHandler,
+    navPrudctHandlerComponent,
+    createNewProductSubmitHandler,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

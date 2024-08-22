@@ -1,4 +1,4 @@
-import { findMany, findproduct } from "../domain/product.js";
+import { createProductDb, findMany, findproduct } from "../domain/product.js";
 import { sendDataResponse } from "../utilis/responses.js";
 import ERR from "../utilis/errors.js";
 
@@ -17,7 +17,6 @@ export const getAll = async (req, res) => {
 
 export const getById = async (req, res) => {
   const id = Number(req.params.id)
-  console.log(id)
   try {
     const foundedProduct = await findproduct('id', id)
     
@@ -28,5 +27,17 @@ export const getById = async (req, res) => {
   } catch (error) {
     console.log(ERR.UNABLE_TO_GET_PRODUCT, error)
     return sendDataResponse(res, 500, {error: ERR.UNABLE_TO_GET_PRODUCT})
+  }
+}
+
+export const create = async (req, res) => {
+  console.log(req.body)
+  const productData = req.body
+  try {
+    const createdProduct = await createProductDb(productData)
+    return sendDataResponse(res, 200, {product: createdProduct})
+  } catch (error) {
+    console.log(ERR.UNABLE_CREATE_PRODUCT, error)
+    return sendDataResponse(res, 200, {error: ERR.UNABLE_CREATE_PRODUCT})
   }
 }
