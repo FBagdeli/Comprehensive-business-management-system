@@ -11,7 +11,6 @@ export const NewInvoice = () => {
         <input placeholder="Enter product price" ></input>
         <label>Product code</label>
         <input placeholder="Enter product code" ></input>
-        
       </form>
     </div>
   )
