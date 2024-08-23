@@ -39,3 +39,14 @@ export async function findAll() {
   if (foundedPersons) return foundedPersons;
   return null;
 }
+
+export async function findByName(name) {
+  const foundedPerson = await dbClient.person.findFirst({
+    where: {
+      firstName : name
+    }
+  })
+
+  if(foundedPerson) return foundedPerson.id
+  return null
+}

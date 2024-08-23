@@ -59,3 +59,5 @@ export const getAllSuppliers = async(req, res) => {
     return sendDataResponse(res, 500, { error: ERR.DIDNT_FIND_PERSON})
   }
 }
+
+

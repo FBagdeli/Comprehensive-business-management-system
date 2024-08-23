@@ -8,8 +8,20 @@ export const createDB = async ({
   dailyGoldPrice,
   jewelryMakingFee,
   date,
+  quantity,
   invoiceType = "SALE",
 }) => {
+  const product = await dbClient.product.findFirst({
+    where :{
+      id: productId
+    }
+  })
+  if(!product) {
+    throw new Error('This product dose not exist.')
+  }
+  if(product.inStock < quantity || product.weight < weight) {
+    throw new Error('We dont have that amount in our shop!')
+  }
   const invoice = await dbClient.invoice.create({
     data: {
       userId,
@@ -29,8 +41,22 @@ export const createDB = async ({
       invoiceProduct: true,
     },
   });
-  if (invoice) return invoice;
-  return null;
+
+
+  if (!invoice) {
+    return null
+  };
+  await dbClient.product.update({
+    where: {
+      id: productId
+    },
+    data: {
+      inStock: product.inStock - quantity,
+      weight: product.weight - weight
+    }
+  })
+  return invoice
+  
 };
 
 async function createInvoice(
@@ -62,6 +88,5 @@ async function createInvoice(
       invoiceProduct: true,
     },
   });
-  console.log("invoice created: ", invoice);
   return invoice;
 }

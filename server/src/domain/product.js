@@ -40,6 +40,16 @@ export async function createProductDb({
   return product
 }
 
+export async function findProductByCode(productCode) {
+  const foundedProduct = await dbClient.product.findFirst({
+    where : {
+      code : productCode
+    }
+  })
+
+  if(foundedProduct) return foundedProduct.id
+  return null
+}
 
 function calculatePrice(weight, dailyGoldPrice, jewelryMakingFee) {
   return (

@@ -31,7 +31,6 @@ export const getById = async (req, res) => {
 }
 
 export const create = async (req, res) => {
-  console.log(req.body)
   const productData = req.body
   try {
     const createdProduct = await createProductDb(productData)
