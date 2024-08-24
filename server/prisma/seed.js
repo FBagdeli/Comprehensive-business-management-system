@@ -173,14 +173,14 @@ async function createInvoice(
   dailyGoldPrice,
   jewelryMakingFee,
   date,
-  invoiceType = "SALE"
+  type = "SALE"
 ) {
   const invoice = await prisma.invoice.create({
     data: {
       userId,
       personId,
       date,
-      invoiceType,
+      type,
       invoiceProduct: {
         create: {
           productId,

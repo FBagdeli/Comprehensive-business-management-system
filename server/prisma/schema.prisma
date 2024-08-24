@@ -65,7 +65,7 @@ model Invoice {
   personId       Int?
   person         Person?          @relation(fields: [personId], references: [id])
   invoiceProduct InvoiceProduct[]
-  invoiceType    transactionType  @default(SALE)
+  type           transactionType  @default(SALE)
   date           DateTime
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
@@ -92,7 +92,7 @@ model Product {
   name             String
   description      String?
   weight           Int
-  inStock          Int              
+  inStock          Int
   jewelryMakingFee Int
   price            Int
   createdAt        DateTime         @default(now())
