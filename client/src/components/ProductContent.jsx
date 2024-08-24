@@ -13,6 +13,7 @@ export const ProductContent = () => {
             <th>Type</th>
             <th>Name</th>
             <th>Price</th>
+            <th>Weight</th>
             <th>Jewelry Making Fee</th>
             <th>In Stock</th>
             <th>Desctiption</th>
@@ -26,6 +27,7 @@ export const ProductContent = () => {
             <td>{productContent.type}</td>
             <td>{productContent.name}</td>
             <td>{productContent.price}</td>
+            <td>{productContent.weight}</td>
             <td>{productContent.jewelryMakingFee}</td>
             <td>{productContent.inStock}</td>
             <td>{productContent.description}</td>

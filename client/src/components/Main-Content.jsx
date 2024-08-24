@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import { ProductContent } from "./ProductContent";
 import { CreateProduct } from "./CreateProduct";
 import { NewInvoice } from "./NewInvoice";
+import { InvoicesContent } from "./InvoicesContent";
 export const MainContent = () => {
   return (
     <div className="main-content">
@@ -17,6 +18,7 @@ export const MainContent = () => {
         <Route path="/products/:id" element={<ProductContent />} />
         <Route path="/products/create" element={<CreateProduct />}/>
         <Route path="/invoices/new" element={<NewInvoice />}/>
+        <Route path="/invoices" element={<InvoicesContent/>}/>
       </Routes>
     </div>
   );

@@ -42,7 +42,6 @@ export const AppProvider = ({ children }) => {
 
   useEffect(() => {
     fetchProducts();
-    // fetchProducts();
   }, []);
 
   const fetchProducts = async () => {
@@ -98,8 +97,28 @@ export const AppProvider = ({ children }) => {
       }
       await fetchProducts();
       const data = await response.json();
-      
+
       // nav("/products");
+    } catch (error) {
+      console.error("Error creating product:", error);
+    }
+  };
+
+  const createNewInvoiceSubmitHandler = async (newInvoice) => {
+    const invoiceWithDateTimeZone = {...newInvoice, date: `${newInvoice.date}T00:00:00Z`}
+    try {
+      const response = await fetch(`${URL}/invoices`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(invoiceWithDateTimeZone),
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+      const data = await response.json();
+      console.log('created invoice: ', data)
     } catch (error) {
       console.error("Error creating product:", error);
     }
@@ -118,6 +137,7 @@ export const AppProvider = ({ children }) => {
     productHandler,
     navPrudctHandlerComponent,
     createNewProductSubmitHandler,
+    createNewInvoiceSubmitHandler,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

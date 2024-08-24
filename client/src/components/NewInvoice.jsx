@@ -1,70 +1,110 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AppContext } from "../context";
 
 export const NewInvoice = () => {
   const [customerName, setCustomerName] = useState("");
   const [productCode, setProductCode] = useState(0);
   const [dailyGoldPrice, setDailyGoldPrice] = useState(2000);
-  const [productWeight, setProductWeight] = useState(0);
+  const [weight, setWeight] = useState(0);
   const [jewelryMakingFee, setJewelryMakingFee] = useState(0);
   const [productPrice, setProductPrice] = useState(0);
+  const [quantity, setQuantity] = useState(0);
   const [invoiceType, setInvoiceType] = useState("SALE");
-
+  const { createNewInvoiceSubmitHandler } = useContext(AppContext);
+  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+  const invoice = {
+    customerName,
+    productCode,
+    dailyGoldPrice,
+    weight,
+    jewelryMakingFee,
+    productPrice,
+    invoiceType,
+    quantity,
+    date,
+  };
   return (
     <div>
-      <form className="invoiceForm" onSubmit={(e) => e.preventDefault()}>
+      <form
+        className="invoiceForm"
+        onSubmit={(e) => {
+          e.preventDefault();
+          createNewInvoiceSubmitHandler(invoice);
+          setCustomerName("")
+          setProductCode(0)
+          setWeight(0)
+          setJewelryMakingFee(0)
+          setProductPrice(0)
+          setQuantity(0)
+        }}
+      >
         <h3>New Invoice</h3>
-        
+
         <label>Customer Name</label>
-        <input 
+        <input
           placeholder="Enter customer name"
           value={customerName}
           onChange={(e) => setCustomerName(e.target.value)}
         ></input>
-        
+
         <label>Product code</label>
-        <input 
+        <input
           placeholder="Enter product code"
           value={productCode}
           onChange={(e) => setProductCode(Number(e.target.value))}
         ></input>
-        
+
         <label>Daily gold price</label>
-        <input 
+        <input
           placeholder="Enter daily gold price"
           value={dailyGoldPrice}
           onChange={(e) => setDailyGoldPrice(Number(e.target.value))}
         ></input>
-        
+
         <label>Product weight</label>
-        <input 
+        <input
           placeholder="Enter product weight"
-          value={productWeight}
-          onChange={(e) => setProductWeight(Number(e.target.value))}
+          value={weight}
+          onChange={(e) => setWeight(Number(e.target.value))}
         ></input>
-        
+
         <label>Product jewelry Making Fee</label>
-        <input 
+        <input
           placeholder="Enter jewelry making fee"
           value={jewelryMakingFee}
           onChange={(e) => setJewelryMakingFee(Number(e.target.value))}
         ></input>
-        
+
         <label>Product price</label>
-        <input 
+        <input
           placeholder="Enter product price"
           value={productPrice}
           onChange={(e) => setProductPrice(Number(e.target.value))}
         ></input>
-        
+
         <label>Invoice type</label>
-        <input 
+        <input
           placeholder="Choose Invoice type"
           value={invoiceType}
           onChange={(e) => setInvoiceType(e.target.value)}
         ></input>
-        
+
+        <label>Quantity</label>
+        <input
+          placeholder="Choose quantity"
+          value={quantity}
+          onChange={(e) => setQuantity(Number(e.target.value))}
+        ></input>
+
+        <label>Date</label>
+        <input
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+        ></input>
+
         <button type="submit">Create Invoice</button>
       </form>
     </div>
   );
-}
+};

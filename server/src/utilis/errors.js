@@ -9,4 +9,5 @@ export default {
   UNABLE_TO_GET_PRODUCT: "Unable to get product",
   UNABLE_CREATE_PRODUCT: "Unable to create new product",
   UNABLE_CREATE_INVOICE: "Unable to create new invoice",
+  DIDNT_FIND_INVOICES: "Didnt find the invoices"
 };

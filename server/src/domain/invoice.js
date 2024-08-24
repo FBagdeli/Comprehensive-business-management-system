@@ -59,34 +59,6 @@ export const createDB = async ({
   
 };
 
-async function createInvoice(
-  userId,
-  personId,
-  productId,
-  weight,
-  dailyGoldPrice,
-  jewelryMakingFee,
-  date,
-  invoiceType = "SALE"
-) {
-  const invoice = await prisma.invoice.create({
-    data: {
-      userId,
-      personId,
-      date,
-      invoiceType,
-      invoiceProduct: {
-        create: {
-          productId,
-          weight,
-          dailyGoldPrice,
-          jewelryMakingFee,
-        },
-      },
-    },
-    include: {
-      invoiceProduct: true,
-    },
-  });
-  return invoice;
+export const findAll = async () => {
+  return await dbClient.invoice.findMany()
 }

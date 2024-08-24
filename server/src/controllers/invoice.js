@@ -1,7 +1,7 @@
-import { createDB } from "../domain/invoice.js";
+import { createDB, findAll } from "../domain/invoice.js";
 import { findProductByCode } from '../domain/product.js'
 import { sendDataResponse } from "../utilis/responses.js";
-import { findByName } from '../domain/person.js'
+import { findByName  } from '../domain/person.js'
 import ERR from "../utilis/errors.js";
 
 export const create = async (req, res) => {
@@ -30,3 +30,12 @@ export const create = async (req, res) => {
   }
 };
 
+export const getAll = async (req, res) => {
+  try {
+    const foundedInvoices = await findAll()
+    return sendDataResponse(res, 200, {invoice : foundedInvoices })
+  } catch (error) {
+    console.log(ERR.DIDNT_FIND_INVOICES)
+    return sendDataResponse(res, 500, {error : ERR.DIDNT_FIND_INVOICES})
+  }
+}
