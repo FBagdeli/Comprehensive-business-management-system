@@ -9,16 +9,22 @@ export const create = async (req, res) => {
   const { productCode, customerName } = newInvoice
   try {
     const productId = await findProductByCode(productCode)
+    if(!productId) {
+      return sendDataResponse(res, 404, {error : ERR.DIDNT_FIND_PRODUCT})
+    }
     newInvoice.productId = productId;
   } catch (error) {
-    return sendDataResponse(res, 404, {error : ERR.DIDNT_FIND_PRODUCT})
+    return sendDataResponse(res, 500, {error : ERR.UNEXPECTED_ERROR})
   }
 
   try {
     const personId = await findByName(customerName)
+    if(!personId) {
+      return sendDataResponse(res, 404, {error : ERR.DIDNT_FIND_PERSON})
+    }
     newInvoice.personId = personId
   } catch (error) {
-    return sendDataResponse(res, 404, {error : ERR.DIDNT_FIND_PERSON})
+    return sendDataResponse(res, 500, {error : ERR.UNEXPECTED_ERROR})
   }
 
   try {
@@ -33,7 +39,7 @@ export const create = async (req, res) => {
 export const getAll = async (req, res) => {
   try {
     const foundedInvoices = await findAll()
-    return sendDataResponse(res, 200, {invoice : foundedInvoices })
+    return sendDataResponse(res, 200, {data : foundedInvoices })
   } catch (error) {
     console.log(ERR.DIDNT_FIND_INVOICES)
     return sendDataResponse(res, 500, {error : ERR.DIDNT_FIND_INVOICES})

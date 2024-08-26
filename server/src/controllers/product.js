@@ -32,6 +32,7 @@ export const getById = async (req, res) => {
 
 export const create = async (req, res) => {
   const productData = req.body
+  console.log('test', productData)
   try {
     const createdProduct = await createProductDb(productData)
     return sendDataResponse(res, 200, {product: createdProduct})

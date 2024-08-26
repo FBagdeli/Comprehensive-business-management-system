@@ -7,6 +7,7 @@ export const AsideUl = () => {
     customerHandler,
     supplierHandler,
     dashboardHandler,
+    invoicesHandler
   } = useContext(AppContext);
   return (
     <ul className="aside-ul">
@@ -30,7 +31,7 @@ export const AsideUl = () => {
           <p>Suppliers</p>
         </Link>
       </li>
-      <li>
+      <li onClick={invoicesHandler}>
         <Link to="/invoices">
           <p>Invoices</p>
         </Link>

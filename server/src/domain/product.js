@@ -22,7 +22,7 @@ export async function createProductDb({
   type = "RING",
   weight,
   jewelryMakingFee,
-  inStock = 1,
+  quantity = 1,
   price = calculatePrice(weight, DGP, jewelryMakingFee),
 }) {
   const product = await dbClient.product.create({
@@ -30,13 +30,12 @@ export async function createProductDb({
       name,
       description,
       weight,
-      inStock,
+      inStock: quantity,
       jewelryMakingFee,
       price,
       type,
     }
   })
-  console.log(product)
   return product
 }
 

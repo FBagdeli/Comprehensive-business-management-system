@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../context";
 
 export const CreateProduct = () => {
@@ -58,7 +58,10 @@ export const CreateProduct = () => {
         <input
           placeholder="Enter product quantity"
           value={quantity}
-          onChange={(e) => setQuantity(Number(e.target.value))}
+          onChange={(e) => {
+            setQuantity(Number(e.target.value))
+            console.log(quantity)
+          }}
         ></input>
         <label>Price</label>
         <input

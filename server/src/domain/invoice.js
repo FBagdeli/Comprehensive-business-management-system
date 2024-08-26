@@ -9,7 +9,7 @@ export const createDB = async ({
   jewelryMakingFee,
   date,
   quantity,
-  invoiceType = "SALE",
+  type = "SALE",
 }) => {
   const product = await dbClient.product.findFirst({
     where :{
@@ -27,7 +27,7 @@ export const createDB = async ({
       userId,
       personId,
       date,
-      invoiceType,
+      type,
       invoiceProduct: {
         create: {
           productId,

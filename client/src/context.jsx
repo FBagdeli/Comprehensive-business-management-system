@@ -13,6 +13,17 @@ export const AppProvider = ({ children }) => {
   const [productsContent, setProductsContent] = useState([]);
   const [products, setProducts] = useState([]);
   const [productContent, setProductContent] = useState([]);
+  const [invoices, setInvoices] = useState([]);
+
+  const fetchedInvoices = async () => {
+    try {
+      const response = await fetch(`${URL}/invoices`);
+      const { data } = await response.json();
+      setInvoices(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const fetchCustomer = async () => {
@@ -20,13 +31,13 @@ export const AppProvider = ({ children }) => {
         const response = await fetch(`${URL}/persons/customers`);
         const customersData = await response.json();
         setCustomers(customersData.data);
+        console.log(customers);
       } catch (error) {
         console.error("Error Fetching customers: ", error);
       }
     };
     fetchCustomer();
   }, []);
-
   useEffect(() => {
     const fetchSupplier = async () => {
       try {
@@ -39,6 +50,11 @@ export const AppProvider = ({ children }) => {
     };
     fetchSupplier();
   }, []);
+
+  const invoicesHandler = async (e) => {
+    e.preventDefault();
+    await fetchedInvoices();
+  };
 
   useEffect(() => {
     fetchProducts();
@@ -84,6 +100,7 @@ export const AppProvider = ({ children }) => {
   };
 
   const createNewProductSubmitHandler = async (newProduct) => {
+    console.log(newProduct)
     try {
       const response = await fetch(`${URL}/products`, {
         method: "POST",
@@ -105,7 +122,10 @@ export const AppProvider = ({ children }) => {
   };
 
   const createNewInvoiceSubmitHandler = async (newInvoice) => {
-    const invoiceWithDateTimeZone = {...newInvoice, date: `${newInvoice.date}T00:00:00Z`}
+    const invoiceWithDateTimeZone = {
+      ...newInvoice,
+      date: `${newInvoice.date}T00:00:00Z`,
+    };
     try {
       const response = await fetch(`${URL}/invoices`, {
         method: "POST",
@@ -118,7 +138,7 @@ export const AppProvider = ({ children }) => {
         throw new Error(`Error: ${response.statusText}`);
       }
       const data = await response.json();
-      console.log('created invoice: ', data)
+      console.log("created invoice: ", data);
     } catch (error) {
       console.error("Error creating product:", error);
     }
@@ -130,6 +150,8 @@ export const AppProvider = ({ children }) => {
     supplierContent,
     productsContent,
     productContent,
+    invoices,
+    invoicesHandler,
     productsHandler,
     customerHandler,
     supplierHandler,
